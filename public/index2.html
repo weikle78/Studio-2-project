@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+    <style> body {padding: 0; margin: 0;} </style>
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.dom.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+      
+      <style>
+    h1 {
+      text-align: center;
+    }
+    table {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    td {
+      width: 25%;
+      text-align: center;
+      padding: 10px;
+    }
+    button {
+      background-color: #E8E8E8;
+      padding: 10px;
+    }
+  </style>
+         	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script>
+    var handpics = ["rockhand.jpg", "paperhand.jpg", "scissorshand.jpg"];
+      var socket;
+       socket = io.connect(window.location.host);
+      socket.on('choice', newChoice)
+    function addColor(obj) {
+      obj.style.backgroundColor = "purple";
+    }
+    function removeColor(obj) {
+      obj.style.backgroundColor = "#E8E8E8";
+    }
+      function displayResult(obj) {
+          var you = obj.id;
+          document.images[3].src = handpics[you];
+          socket.emit ('choice', you);
+      }
+      
+      function newChoice(choice) {
+          console.log(choice)
+          document.images[4].src = handpics[choice];
+      }
+       
+      
+  </script>
+  </head>
+  <body>
+  <h1>Rock, Paper, Scissors</h1>
+  <table>
+    <tr>
+      <td><h1>Choose...</h1></td>
+      <td>
+        <button type="button" id="0" onmouseover="addColor(this)"
+                onmouseout="removeColor(this)"
+                onclick="displayResult(this)">
+          <image src="rock.jpg" alt="ROCK"></image>
+        </button>
+      </td>
+      <td>
+        <button type="button" id="1" onmouseover="addColor(this)"
+                onmouseout="removeColor(this)"
+                onclick="displayResult(this)">
+          <image src="paper.jpg" alt="PAPER"></image>
+        </button>
+      </td>
+      <td>
+        <button type="button" id="2" onmouseover="addColor(this)"
+                onmouseout="removeColor(this)"
+                onclick="displayResult(this)">
+          <image src="scissors.jpg" alt="SCISSORS"></image>
+        </button> 
+      </td>
+    </tr>
+    <tr>
+        <td><h1>You...</h1></td>
+        <td><img src="blank.jpg" alt=""></td>
+        <td><h1>Me...</h1></td>
+        <td><img src="blank.jpg" alt=""></td>
+    </tr>
+  </table>
+
+</body>
+</html>
